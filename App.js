@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 
 import EditableTimer from './components/EditableTimer'
-import EditableTimer from './components/ToggleableTimerForm'
+import ToggleableTimerForm from './components/ToggleableTimerForm'
 
 export default class App extends React.Component {
   render() {
