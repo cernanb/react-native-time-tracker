@@ -27,6 +27,24 @@ export default class App extends React.Component {
     ]
   }
 
+  handleEditTimer = attrs => {
+    const { timers } = this.state
+    this.setState({
+      timers: timers.map(timer => {
+        if (timer.id == attrs.id) {
+          const { title, project } = attrs
+          debugger
+          return {
+            ...timer,
+            title,
+            project
+          }
+        }
+        return timer
+      })
+    })
+  }
+
   handleCreateFormSubmit = timer => {
     const { timers } = this.state
 
@@ -34,6 +52,14 @@ export default class App extends React.Component {
       timers: [newTimer(timer), ...timers]
     })
   }
+
+  remove = id => {
+    const { timers } = this.state
+    this.setState({
+      timers: timers.filter(timer => timer.id !== id)
+    })
+  }
+
   render() {
     const { timers } = this.state
     return (
@@ -43,7 +69,14 @@ export default class App extends React.Component {
         </View>
         <ScrollView style={styles.timerList}>
           <ToggleableTimerForm onFormSubmit={this.handleCreateFormSubmit} />
-          {timers.map(timer => <EditableTimer key={timer.id} {...timer} />)}
+          {timers.map(timer => (
+            <EditableTimer
+              key={timer.id}
+              {...timer}
+              onFormSubmit={this.handleEditTimer}
+              onRemovePress={this.remove}
+            />
+          ))}
         </ScrollView>
       </View>
     )
