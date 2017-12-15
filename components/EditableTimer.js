@@ -1,9 +1,21 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Timer from './Timer'
 import TimerForm from './TimerForm'
 
 export default class EditableTmer extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
+    elapsed: PropTypes.number.isRequired,
+    isRunning: PropTypes.bool.isRequired,
+    onFormSubmit: PropTypes.func.isRequired,
+    onRemovePress: PropTypes.func.isRequired,
+    onStartPress: PropTypes.func.isRequired,
+    onStopPress: PropTypes.func.isRequired
+  }
   state = { editFormOpen: false }
 
   toggleEdit = () => {
@@ -19,8 +31,16 @@ export default class EditableTmer extends Component {
     this.toggleEdit()
   }
   render() {
-    const { id, title, project, elapsed, isRunning, onRemovePress } = this.props
-    console.warn(onRemovePress)
+    const {
+      id,
+      title,
+      project,
+      elapsed,
+      isRunning,
+      onRemovePress,
+      onStartPress,
+      onStopPress
+    } = this.props
     const { editFormOpen } = this.state
     if (editFormOpen) {
       return (
@@ -41,7 +61,9 @@ export default class EditableTmer extends Component {
         project={project}
         isRunning={isRunning}
         onEditPress={this.toggleEdit}
-        onRemovePress={() => onRemovePress(id)}
+        onRemovePress={onRemovePress}
+        onStopPress={onStopPress}
+        onStartPress={onStartPress}
       />
     )
   }
