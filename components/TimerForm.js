@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native'
+import PropTypes from 'prop-types'
 
 import TimerButton from './TimerButton'
 
@@ -11,6 +12,14 @@ export default class TimerForm extends Component {
       title: id ? title : '',
       project: id ? project : ''
     }
+  }
+
+  static propTypes = {
+    id: PropTypes.string,
+    title: PropTypes.string,
+    project: PropTypes.string,
+    onFormSubmit: PropTypes.func.isRequired,
+    onFormClose: PropTypes.func.isRequired
   }
 
   handleTitleChange = title => {
